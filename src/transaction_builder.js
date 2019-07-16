@@ -528,28 +528,16 @@ TransactionBuilder.prototype.setVersion = function (version, overwinter = true) 
 }
 
 TransactionBuilder.prototype.setVersionGroupId = function (versionGroupId) {
-  if (!(coins.isZcashLike(this.network) && this.tx.isOverwinterCompatible())) {
-    throw new Error('expiryHeight can only be set for Zcash starting at overwinter version. Current network coin: ' +
-      this.network.coin + ', version: ' + this.tx.version)
-  }
   typeforce(types.UInt32, versionGroupId)
   this.tx.versionGroupId = versionGroupId
 }
 
 TransactionBuilder.prototype.setExpiryHeight = function (expiryHeight) {
-  if (!(coins.isZcashLike(this.network) && this.tx.isOverwinterCompatible())) {
-    throw new Error('expiryHeight can only be set for Zcash starting at overwinter version. Current network coin: ' +
-      this.network.coin + ', version: ' + this.tx.version)
-  }
   typeforce(types.UInt32, expiryHeight)
   this.tx.expiryHeight = expiryHeight
 }
 
 TransactionBuilder.prototype.setJoinSplits = function (transaction) {
-  if (!(coins.isZcashLike(this.network) && this.tx.supportsJoinSplits())) {
-    throw new Error('joinsplits can only be set for Zcash starting at version 2. Current network coin: ' +
-      this.network.coin + ', version: ' + this.tx.version)
-  }
   if (transaction && transaction.joinsplits) {
     this.tx.joinsplits = transaction.joinsplits.map(function (txJoinsplit) {
       return {
