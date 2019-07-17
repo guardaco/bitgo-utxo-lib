@@ -8,7 +8,8 @@ const coins = {
   LTC: 'ltc',
   ZEC: 'zec',
   DASH: 'dash',
-  KMD: 'kmd'
+  KMD: 'kmd',
+  YCASH: 'ycash',
 }
 
 coins.isBitcoin = function (network) {
@@ -35,8 +36,14 @@ coins.isKmd = function (network) {
   return typeforce.value(coins.KMD)(network.coin)
 }
 
+coins.isYcash= function (network) {
+  return typeforce.value(coins.KMD)(network.coin)
+}
+
 coins.isZcashLike = function (network) {
-  return typeforce.value(coins.ZEC)(network.coin) || typeforce.value(coins.KMD)(network.coin)
+  return typeforce.value(coins.ZEC)(network.coin)
+    || typeforce.value(coins.KMD)(network.coin)
+    || typeforce.value(coins.YCASH)(network.coin)
 }
 
 coins.isValidCoin = typeforce.oneOf(
@@ -45,7 +52,8 @@ coins.isValidCoin = typeforce.oneOf(
   coins.isBitcoinGold,
   coins.isLitecoin,
   coins.isZcash,
-  coins.isKmd
+  coins.isKmd,
+  coins.isYcash,
 )
 
 module.exports = coins
